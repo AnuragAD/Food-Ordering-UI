@@ -1,0 +1,98 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  height: 50px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.nav-items > ul {
+  display: flex;
+  list-style-type: none;
+}
+
+.nav-items > ul > li {
+  padding: 10px;
+}
+
+.logo {
+  width: 150px;
+  height: 50px;
+}
+
+.card {
+  width: 15%;
+  padding: 10px;
+  margin: 15px;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.1);
+}
+
+.card > img {
+  width: 100%;
+}
+
+.restaurant-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.restaurant-list > a {
+  all: unset;
+}
+
+.restaurant-list > a > .card {
+  width: 300px;
+  cursor: pointer;
+}
+
+.search-area {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px 20px 0px;
+}
+
+.searchText {
+  height: 30px;
+  width: 50%;
+  font-family: cursive;
+  border: 1px solid gray;
+  border-radius: 7px;
+  text-align: center;
+}
+
+.searchText:focus {
+  outline: 0;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: 2px solid wheat;
+}
+.submit-btn {
+  background-color: #337dff;
+  margin: 0 0 0 10px;
+  border: 1px solid;
+  border-radius: 7px;
+  width: 100px;
+  color: white;
+}
+
+.autoComplete {
+  width: 40%;
+  cursor: pointer;
+  margin-left: 25vw;
+}
+
+.placeIcon {
+  margin-right: 50px;
+}
+
+.searchTextField .MuiOutlinedInput-root {
+  border-radius: 20px;
+}
+
+.autoCompleteTextField .MuiOutlinedInput-root {
+  border-radius: 20px;
+}
