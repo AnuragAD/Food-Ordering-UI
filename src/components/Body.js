@@ -23,7 +23,7 @@ import Shimmer from "../core/Shimmer";
 
 let timeOutTimer;
 let selectedLoaction;
-
+let location;
 const RestaurantCard = ({ restaurant }) => {
   return (
     <div className="card">
@@ -95,6 +95,7 @@ async function fetchSelectedPlace(place_id) {
   const fetchRestaurantDetail = await fetchRestaurantList(
     fetchSelectedDetail.data[0]
   );
+  location = fetchSelectedDetail.data[0].geometry.location;
   return fetchRestaurantDetail.data;
 }
 
@@ -131,6 +132,7 @@ const Body = () => {
 
   async function selectedRestaurant(params) {
     if (!params) return;
+
     setFilteredRestaurant([]);
     selectedLoaction = params.description;
     place_id = params.place_id;
@@ -191,7 +193,11 @@ const Body = () => {
       ) : (
         <div className="restaurant-list">
           {filteredRestaurant.map((res) => (
-            <Link key={res.data.id} to={"/restaurantdetail/" + res.data.id}>
+            <Link
+              key={res.data.id}
+              to={"/restaurantdetail/"}
+              state={{placeid:res.data.id, locations: location }}
+            >
               <RestaurantCard restaurant={res.data} />
             </Link>
           ))}
