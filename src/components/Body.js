@@ -2,7 +2,7 @@ import {
   IMG_CDN_URL,
   RECOMMENDED_ADDRESS_URL,
   RESTAURANT_LIST_BASED_ON_LOACTION,
-} from "./config";
+} from "../core/constants";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import PlaceSharpIcon from "@mui/icons-material/PlaceSharp";
@@ -20,6 +20,7 @@ import {
 } from "@mui/material";
 import AutoComplete from "../core/Autocomplete";
 import Shimmer from "../core/Shimmer";
+import CarouselComponent from "../core/Carousel";
 
 let timeOutTimer;
 let selectedLoaction;
@@ -60,7 +61,7 @@ const RestaurantCard = ({ restaurant }) => {
             <Rating
               name="size-small"
               size="small"
-              value={restaurant.avgRating}
+              value={+restaurant.avgRating}
               readOnly
             />
           </Typography>
@@ -101,10 +102,10 @@ async function fetchSelectedPlace(place_id) {
 
 const Body = () => {
   let { place_id } = useParams();
-  const navigate = useNavigate();
   const [isShowPlaces, setIsShowPlaces] = useState(false);
   const [restaurant, setRestaurant] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+  const [carousel, setCarousel] = useState([]);
 
   //  filter the restaurant from "restaurant" using debouncing
   function handleSearch(search) {
@@ -119,15 +120,19 @@ const Body = () => {
     }, 750);
   }
 
-  function restaurantDetail(id) {
-    console.log(id);
-    navigate("/restaurantdetail/" + id);
-  }
-
   async function data() {
     const { cards } = await fetchSelectedPlace(place_id);
-    setRestaurant(cards[2]?.data?.data?.cards);
-    setFilteredRestaurant(cards[2]?.data?.data?.cards);
+    let isFirst = true;
+    cards.map(card=>{
+      if(card.cardType === 'carousel' && isFirst){
+        isFirst = false;
+        setCarousel(card?.data?.data?.cards);
+      }
+      else if(card.cardType === 'seeAllRestaurants'){
+        setRestaurant(card?.data?.data?.cards);
+        setFilteredRestaurant(card?.data?.data?.cards);
+      }
+    })
   }
 
   async function selectedRestaurant(params) {
@@ -186,6 +191,10 @@ const Body = () => {
           }}
         />
       </div>
+      { carousel.length === 0 ?  <Shimmer loading/> :(
+        <CarouselComponent data={carousel}/>
+      )
+      }
       {filteredRestaurant.length === 0 ? (
         <div className="restaurant-list">
           <Shimmer loading />
@@ -196,7 +205,7 @@ const Body = () => {
             <Link
               key={res.data.id}
               to={"/restaurantdetail/"}
-              state={{placeid:res.data.id, locations: location }}
+              state={{ placeid: res.data.id, locations: location }}
             >
               <RestaurantCard restaurant={res.data} />
             </Link>
