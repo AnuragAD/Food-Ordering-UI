@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { RESTAURANT_MENU } from "./config";
-
-
+import { RESTAURANT_MENU } from "../core/constants";
 
 const RestaurantDetail = () => {
   const { state } = useLocation();
@@ -19,7 +17,9 @@ const RestaurantDetail = () => {
   useEffect(() => {
   fetchRestaurantDetails(state);
   }, []);
-  return <span>Res</span>;
+  //------------------------------JSX-----------------------------------------------
+  return(<h1>Restaurant Details</h1>
+  )
 };
 
 export default RestaurantDetail;

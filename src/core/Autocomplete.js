@@ -1,6 +1,6 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { useState } from "react";
-import { PLACE_AUTOCOMPLETE_URL } from "../components/config";
+import { PLACE_AUTOCOMPLETE_URL } from "./constants";
 
 let timeOutInterval;
 const AutoComplete = ({ placeSelect }) => {
@@ -12,9 +12,7 @@ const AutoComplete = ({ placeSelect }) => {
     }
     timeOutInterval = setTimeout(async () => {
       if (!query) return;
-      const response = await fetch(
-        PLACE_AUTOCOMPLETE_URL + "input=" + query + "&types="
-      );
+      const response = await fetch(PLACE_AUTOCOMPLETE_URL+query+"&types=");
       const autoComplete = await response.json();
       setLocationAutoComplete(autoComplete.data);
     }, 750);

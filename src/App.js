@@ -19,15 +19,16 @@
  *
  */
 
-import React, { useState } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
-import Body from "./components/Body";
+//import Body from "./components/Body";
 import Footer from "./components/Footer";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import About from "./components/About";
 import Home from "./components/Home";
 import RestaurantDetail from "./components/RestaurantDetail";
+
 
 const AppLayout = () => {
   return (
@@ -38,6 +39,8 @@ const AppLayout = () => {
     </>
   );
 };
+
+const Body = lazy(() => import('./components/Body') );
 
 const appRouter = createBrowserRouter([
   {
@@ -50,11 +53,11 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/restaurantsat/:place_id",
-        element: <Body />,
+        element: <Suspense><Body/></Suspense>,
       },
       {
         path: "/restaurantdetail",
-        element: <RestaurantDetail />,
+        element:<RestaurantDetail />,
       },
       {
         path: "/about",
