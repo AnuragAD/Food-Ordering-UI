@@ -11,4 +11,4 @@ export const RESTAURANT_LIST_BASED_ON_LOACTION =
   "https://www.swiggy.com/dapi/restaurants/list/v5?lat=";
 
 export const RESTAURANT_MENU =
-  "https://www.swiggy.com/dapi/menu/v4/full?lat=12.9715987&lng=77.5945627&menuId=3241";
+  "https://www.swiggy.com/dapi/menu/v4/full?lat="//12.9715987&lng=77.5945627&menuId=3241";
